@@ -1,7 +1,17 @@
 ;(function() {
     
+    function inspFlat(obj) {
+        // TODO: to implement
+    }
+    
+    function inspDeep(obj) {
+        // TODO: to implement
+    }
+    
     // the module exports
     var JSOA = {
+        inspFlat: inspFlat,
+        inspDeep: inspDeep
     };
 
     // define the module as AMD, commonJS or global
