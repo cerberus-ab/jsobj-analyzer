@@ -1,0 +1,35 @@
+{
+  "name": "jsobj-analyzer",
+  "version": "0.1.0",
+  "description": "Provides information about structure of a JavaScript object.",
+  "main": "dist/jsoa.min.js",
+  "scripts": {
+    "test": "mocha ./spec/**/*.[sS]pec.js",
+    "build": "mkdir -p ./dist && uglifyjs ./src/jsoa.js > ./dist/jsoa.min.js -b beautify=false,preamble=\"'/*! JavaScript Object structure analyzer - v0.1 - 2018; Licensed MIT */'\"",
+    "preversion": "npm test",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags",
+    "release:patch": "npm version patch -m \"Upgrade to %s\" && npm publish && rm -rf ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cerberus-ab/jsobj-analyzer.git"
+  },
+  "keywords": [
+    "object",
+    "structure",
+    "analysis",
+    "statistics",
+    "JSON"
+  ],
+  "author": "Antony Belov <cerberus.ab@mail.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cerberus-ab/jsobj-analyzer/issues"
+  },
+  "homepage": "https://github.com/cerberus-ab/jsobj-analyzer#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "uglify-js": "^3.4.9"
+  }
+}

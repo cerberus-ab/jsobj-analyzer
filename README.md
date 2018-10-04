@@ -1,2 +1,2 @@
-# jsobj-analyzer
-JavaScript Object structure analyzer.
+# JavaScript Object Analyzer
+Provides information about structure of a JavaScript object.

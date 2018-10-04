@@ -59,3 +59,10 @@ typings/
 
 # next.js build output
 .next
+
+# build
+dist
+
+# env
+.DS_Store
+.idea
