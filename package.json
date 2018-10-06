@@ -1,6 +1,6 @@
 {
   "name": "jsobj-analyzer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provides information about structure of a JavaScript object.",
   "main": "dist/jsoa.min.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "structure",
     "analysis",
     "statistics",
-    "JSON"
+    "toStringTag"
   ],
   "author": "Antony Belov <cerberus.ab@mail.ru>",
   "license": "MIT",
