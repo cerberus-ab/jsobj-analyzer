@@ -27,7 +27,7 @@ Also the module exported as AMD module.
 ### Get Tag
 > string getTag(any)
 
-The analyzes needs to determine the type of any variable. This method relies on:
+The analyzes needs to determine the type of any variable. This function relies on:
 1. used or overridden well-known [Symbol toStringTag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag) for objects;
 2. read-only property [Function.name](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) taken from constructor if the variable has been instantiated;
 3. finally result of [Object.prototype.toString](https://www.ecma-international.org/ecma-262/8.0/index.html#sec-object.prototype.tostring) which can process any variable at all.
@@ -60,6 +60,8 @@ async function A() { /* await a promise and return */ } | AsyncFunction
 > object inspFlat(obj)
 
 The function collects statistics about an object structure. Requires plain or iterable object as first parameter.
+
+For example let's describe next object:
 
 ```javascript
 class Person {
@@ -99,7 +101,7 @@ The output will be:
 ### Deep Inspection
 > object inspFlat(obj)
 
-Unlike the previous function collects statistics recursively over all nested plain and iterable objects. 
+Unlike the previous function collects statistics recursively over all nested plain and iterable objects too. 
 
 The same data with deep inspection:
 ```javascript
