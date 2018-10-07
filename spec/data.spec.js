@@ -9,7 +9,7 @@ describe('JavaScript Object Analyzer data tests', () => {
         constructor(name) {
             this.name = name;
         }
-    };
+    }
     
     let data = {
         x: 10,

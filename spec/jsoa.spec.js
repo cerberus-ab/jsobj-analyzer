@@ -29,13 +29,13 @@ describe('JavaScript Object Analyzer specification', () => {
                 get [Symbol.toStringTag]() {
                     return 'Kitten';
                 }
-            };
+            }
             assert.strictEqual(JSOA.getTag(kitten), 'Kitten');
             assert.strictEqual(JSOA.getTag(new Cat), 'Kitten');
         });
         it('should pay attention on constructor.name for objects secondly', () => {
-            function Dog() {};
-            class Cat {};
+            function Dog() {}
+            class Cat {}
             assert.strictEqual(JSOA.getTag(new Dog), 'Dog');
             assert.strictEqual(JSOA.getTag(new Cat), 'Cat');
         }); 
