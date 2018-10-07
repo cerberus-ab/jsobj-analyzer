@@ -1,6 +1,6 @@
 ;(function() {
     
-    var VERSION = '0.1.2';
+    var VERSION = '0.1.3';
     
     /**
      * Get Tag via Symbol.toStringTag, Function.name 
