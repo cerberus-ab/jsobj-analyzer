@@ -3,10 +3,6 @@
 const assert = require('assert');
 const JSOA = require('../src/jsoa');
 
-// TODO: much better do not rely on order
-const assertObjectEqual = (o1, o2) => 
-    assert.strictEqual(JSON.stringify(o1), JSON.stringify(o2));
-
 describe('JavaScript Object Analyzer specification', () => {
    
     describe('the module', () => {
@@ -14,7 +10,7 @@ describe('JavaScript Object Analyzer specification', () => {
             assert.ok(typeof JSOA.VERSION == 'string'); 
         });
         it('should provide a function for getting tag: getTag', () => {
-            assert.ok(typeof JSOA.inspFlat == 'function');
+            assert.ok(typeof JSOA.getTag == 'function');
         });
         it('should provide a function for flat inspection: inspFlat', () => {
             assert.ok(typeof JSOA.inspFlat == 'function');
@@ -56,20 +52,20 @@ describe('JavaScript Object Analyzer specification', () => {
             assert.throws(() => JSOA.inspFlat(null), TypeError);
         });
         it('should collect stats over a plain object properties', () => {
-            assertObjectEqual(JSOA.inspFlat({ x: 10, y: 20, exists: true, name: 'p1' }), { 
-                Number: 2, Boolean: 1, String: 1 
+            assert.deepStrictEqual(JSOA.inspFlat({ x: 10, y: 20, exists: true, name: 'p1' }), { 
+                Number: 2, Boolean: 1, String: 1
             });
         });
         it('should collect stats over Array', () => {
-            assertObjectEqual(JSOA.inspFlat([ Infinity, x => 0, new Date ]), {
+            assert.deepStrictEqual(JSOA.inspFlat([ Infinity, x => 0, new Date ]), {
                 Number: 1, Function: 1, Date: 1 
             });
         });
         it('should collect stats over Set/Map', () => {
-            assertObjectEqual(JSOA.inspFlat(new Map([['a', 1], ['b', 2], ['c', 3]])), {
+            assert.deepStrictEqual(JSOA.inspFlat(new Map([['a', 1], ['b', 2], ['c', 3]])), {
                 Array: 3 
             });
-            assertObjectEqual(JSOA.inspFlat(new Set([1, 1, 2, 2, 3])), {
+            assert.deepStrictEqual(JSOA.inspFlat(new Set([1, 1, 2, 2, 3])), {
                 Number: 3 
             });
         });
@@ -87,12 +83,12 @@ describe('JavaScript Object Analyzer specification', () => {
                     };
                 }
             };
-            assertObjectEqual(JSOA.inspFlat(iterable), {
+            assert.deepStrictEqual(JSOA.inspFlat(iterable), {
                 Number: 10
             });
         });
         it('should consider nested plain and iterable objects flatly', () => {
-            assertObjectEqual(JSOA.inspFlat({ obj: { x: 10 }, arr: [1, 2, 3] }), {
+            assert.deepStrictEqual(JSOA.inspFlat({ obj: { x: 10 }, arr: [1, 2, 3] }), {
                 Object: 1, Array: 1
             });
         });
@@ -100,7 +96,7 @@ describe('JavaScript Object Analyzer specification', () => {
     
     describe('inspDeep: Deep inspection cases', () => {
         it('should collect stats recursively over plain and iterable objects', () => {
-            assertObjectEqual(JSOA.inspDeep({ obj: { x: 10 }, arr: [1, 2, [3, 4]] }), {
+            assert.deepStrictEqual(JSOA.inspDeep({ obj: { x: 10 }, arr: [1, 2, [3, 4]] }), {
                 Number: 5
             });
         });
