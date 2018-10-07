@@ -47,6 +47,7 @@
             return any;
         }
         if (isPlainObject(any)) {
+            // polyfill for Object.values
             return Object.keys(any).map(function(k) { 
                 return any[k];
             });
@@ -94,11 +95,15 @@
      * @param {boolean} deep, Set true for deep iterating
      */
     function iterOver(iterable, reducer, deep) {
-        // TODO: check for compatibility
-        for (var it of iterable) {
-            var nextIterable = toIterable(it);
+        // polyfill for for..of
+        var iterator = iterable[Symbol.iterator](), step;
+        
+        while (!(step = iterator.next()).done) {
+            var value = step.value;
+            var nextIterable = toIterable(value);
+            
             if (!(deep && nextIterable)) {
-                reducer.add(getTag(it));
+                reducer.add(getTag(value));
             } else {
                 iterOver(nextIterable, reducer, deep);
             }
