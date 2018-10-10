@@ -99,7 +99,7 @@ The output will be:
 ```
 
 ### Deep Inspection
-> object inspFlat(object obj, number maxDepth = 6)
+> object inspDeep(object obj, number maxDepth = 6)
 
 Unlike the previous function collects statistics recursively over all nested plain and iterable objects too. 
 
