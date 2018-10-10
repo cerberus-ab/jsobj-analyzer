@@ -113,7 +113,7 @@ The output will be:
 { Number: 3, String: 3, Boolean: 2, Function: 3, Person: 1, Date: 1 }
 ```
 
-The optional second parameter *maxDepth* limits the depth of inspection. By default is 6: it's enough for most cases.
+The optional second parameter *maxDepth* limits the depth of inspection. By default is 6: that is enough for most cases.
 
 ## Changelog
 ### 0.1.4
