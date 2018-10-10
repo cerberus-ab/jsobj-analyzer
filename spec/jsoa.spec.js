@@ -100,6 +100,19 @@ describe('JavaScript Object Analyzer specification', () => {
                 Number: 5
             });
         });
+        it('should respect max depth passed as second parameter', () => {
+            assert.deepStrictEqual(JSOA.inspDeep({ 1: { 2: { 3: true } } }, 2), { 
+                Object: 1
+            });
+        });
+        it('should respect max depth by default: 6', () => {
+            assert.deepStrictEqual(JSOA.inspDeep({ 1: { 2: { 3: { 4: { 5: { 6: { 7: true } } } } } } }), { 
+                Object: 1
+            });
+            assert.deepStrictEqual(JSOA.inspDeep({ 1: { 2: { 3: { 4: { 5: { 6: true } } } } } }), { 
+                Boolean: 1
+            });
+        });
     });
     
 });

@@ -25,7 +25,7 @@ Also the module exported as AMD module.
 * [Deep Inspection](#deep-inspection)
 
 ### Get Tag
-> string getTag(any)
+> string getTag(Mixed any)
 
 The analyzes needs to determine the type of any variable. This function relies on:
 1. used or overridden well-known [Symbol toStringTag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag) for objects;
@@ -57,7 +57,7 @@ function* A(i) { while(1) yield i += 1; } | GeneratorFunction
 async function A() { /* await a promise and return */ } | AsyncFunction
 
 ### Flat Inspection
-> object inspFlat(obj)
+> object inspFlat(object obj)
 
 The function collects statistics about an object structure. Requires plain or iterable object as first parameter.
 
@@ -99,7 +99,7 @@ The output will be:
 ```
 
 ### Deep Inspection
-> object inspFlat(obj)
+> object inspFlat(object obj, number maxDepth = 6)
 
 Unlike the previous function collects statistics recursively over all nested plain and iterable objects too. 
 
@@ -112,3 +112,9 @@ The output will be:
 ```
 { Number: 3, String: 3, Boolean: 2, Function: 3, Person: 1, Date: 1 }
 ```
+
+The optional second parameter *maxDepth* limits the depth of inspection. By default is 6: it's enough for most cases.
+
+## Changelog
+### 0.1.4
+* Supported parameter *maxDepth* for deep inspection (Closed [Issue #2](https://github.com/cerberus-ab/jsobj-analyzer/issues/2))

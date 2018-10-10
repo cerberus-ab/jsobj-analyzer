@@ -1,6 +1,11 @@
 ;(function() {
     
-    var VERSION = '0.1.3';
+    var constants = {
+        // meta
+        VERSION: '0.1.4',
+        // defaults
+        DEFAULT_MAX_DEPTH: 6
+    };
     
     /**
      * Get Tag via Symbol.toStringTag, Function.name 
@@ -92,20 +97,20 @@
      *
      * @param {object} iterable
      * @param {object} reducer, Should be created by initTagsReducer
-     * @param {boolean} deep, Set true for deep iterating
+     * @param {number} depth, Current depth of recursion
+     * @param {number} maxDepth, Max available depth of recursion
      */
-    function iterOver(iterable, reducer, deep) {
+    function iterOver(iterable, reducer, depth, maxDepth) {
         // polyfill for for..of
         var iterator = iterable[Symbol.iterator](), step;
         
         while (!(step = iterator.next()).done) {
-            var value = step.value;
-            var nextIterable = toIterable(value);
+            var nextIterable = toIterable(step.value);
             
-            if (!(deep && nextIterable)) {
-                reducer.add(getTag(value));
+            if (!nextIterable || (maxDepth > 0 && maxDepth <= (depth + 1))) {
+                reducer.add(getTag(step.value));
             } else {
-                iterOver(nextIterable, reducer, deep);
+                iterOver(nextIterable, reducer, depth + 1, maxDepth);
             }
         }
     }
@@ -114,31 +119,32 @@
      * Collects statistics over a plain or iterable object.
      *
      * @param {object} obj
-     * @param {boolean} deep, Set true for collecting data in nested objects
+     * @param {number} maxDepth, By default is not limited
      */
-    function inspObject(obj, deep) {
+    function inspObject(obj, maxDepth) {
         var iterable = toIterable(obj);
         if (!iterable) {
             throw new TypeError(obj + ' isn`t and can`t be iterable');
         }
         var reducer = initTagsReducer(groupCount);
-        iterOver(iterable, reducer, Boolean(deep));
+        iterOver(iterable, reducer, 0, maxDepth || 0);
         return reducer.combine();
     }
     
     // Flat inspection
     function inspFlat(obj) {
-        return inspObject(obj);
+        return inspObject(obj, 1);
     }
     
     // Deep inspection
-    function inspDeep(obj) {
-        return inspObject(obj, true);
+    function inspDeep(obj, maxDepth) {
+        return inspObject(obj, typeof maxDepth !== 'undefined' 
+            ? parseInt(maxDepth) : constants.DEFAULT_MAX_DEPTH);
     }
     
     // the module exports
     var JSOA = {
-        VERSION: VERSION,
+        VERSION: constants.VERSION,
         getTag: getTag,
         inspFlat: inspFlat,
         inspDeep: inspDeep    
